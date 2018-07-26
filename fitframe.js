@@ -153,6 +153,13 @@
       var width = iframe.attr('width'),
         height = iframe.attr('height');
 
+      if (!width) {
+        width = iframe.width();
+      }
+      if (!height) {
+        height = iframe.height();
+      }
+
       return ((height / width)).toPrecision(4);
     },
 
