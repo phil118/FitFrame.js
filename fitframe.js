@@ -28,8 +28,8 @@
     // Wraps a single iframe element (mode = 'wrap')
     wrap: function (iframe) {
 
-      var width = $(iframe).data('width') || iframe.width();
-      var height = $(iframe).data('height') || iframe.height();
+      var width = $(iframe).data('width') || $(iframe).width();
+      var height = $(iframe).data('height') || $(iframe).height();
 
       var padding = this._calculateRatio(width, height) * 100 + '%',
         wrapper = $('<div/>')
@@ -90,23 +90,25 @@
       this.update();
     },
 
-    _calcWrapped: function() {
+    _calcWrapped: function () {
 
       var self = this,
 
-      iframes = this.element.find('iframe')
+        iframes = self.element.find('iframe')
           .filter(function () {
             return $(this).closest('.' + self.options.wrapperCssClass).length;
           });
+
+      console.log(iframes);
 
       iframes.each(function () {
 
         var iframe = this;
 
-        var width = $(iframe).data('width') || iframe.width();
-        var height = $(iframe).data('height') || iframe.height();
+        var width = $(iframe).data('width') || $(iframe).attr('width');
+        var height = $(iframe).data('height') || $(iframe).attr('height');
 
-        var padding = this._calculateRatio(width, height) * 100 + '%';
+        var padding = self._calculateRatio(width, height) * 100 + '%';
 
         $(iframe).parent('.' + self.options.wrapperCssClass).css('padding-bottom', padding);
 
@@ -138,8 +140,8 @@
 
     _setupIframe: function (iframe) {
 
-      var width = $(iframe).data('width') || iframe.width();
-      var height = $(iframe).data('height') || iframe.height();
+      var width = $(iframe).data('width') || $(iframe).width();
+      var height = $(iframe).data('height') || $(iframe).height();
 
       iframe
         .data(PLUGIN_NAME, {
