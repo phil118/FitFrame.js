@@ -1,23 +1,9 @@
-/******************************************
- * jQuery FitFrame
- *
- * A lightweight, easy-to-use jQuery plugin for responsive iframes.
- *
- * Author          @benfosterdev (http://ben.onfabrik.com)
- * Copyright       Copyright (c) 2013 Ben Foster.
- * License         MIT
- * Github          https://github.com/benfoster/FitFrame.js
- * Version         0.1.1
- *
- ******************************************/
-
-;
 (function ($, window, document, undefined) {
 
   var PLUGIN_NAME = "fitFrame",
-      INSTANCE_KEY = "plugin_" + PLUGIN_NAME,
-      MODE_RESIZE = 'resize',
-      MODE_WRAP = 'wrap';
+    INSTANCE_KEY = "plugin_" + PLUGIN_NAME,
+    MODE_RESIZE = 'resize',
+    MODE_WRAP = 'wrap';
 
   function FitFrame(element, options, defaults) {
     this.element = $(element);
@@ -41,7 +27,10 @@
     // Wraps a single iframe element (mode = 'wrap')
     wrap: function (iframe) {
 
-      var padding = (this._calculateRatio(iframe) * 100) + '%',
+      var width = $(iframe).data('width') || iframe.width();
+      var height = $(iframe).data('height') || iframe.height();
+
+      var padding = this._calculateRatio(width, height) * 100 + '%',
         wrapper = $('<div/>')
           .addClass(this.options.wrapperCssClass)
           .css('padding-bottom', padding);
@@ -87,12 +76,12 @@
     },
 
     _init: function () {
-      
+
       if (this.options.fitHeight) {
         // It's not possible to fit height in wrap mode so default to resize
         this.options.mode = MODE_RESIZE;
       }
-      
+
       if (this.options.mode === MODE_RESIZE) {
         this._bind(); // binds to window resize
       }
@@ -105,7 +94,7 @@
         // select iframes that haven't already been wrapped
         iframes = this.element.find('iframe')
           .filter(function () {
-            return !$(this).closest('.' + self.options.wrapperCssClass).length
+            return !$(this).closest('.' + self.options.wrapperCssClass).length;
           });
 
       iframes.each(function () {
@@ -162,8 +151,6 @@
     },
 
     _calculateRatio: function (width, height) {
-      //var width = iframe.attr('width'),
-      //  height = iframe.attr('height');
 
       return ((height / width)).toPrecision(4);
     },
@@ -197,9 +184,9 @@
 
       if (instance) {
         // check if invoking public methods
-        if (typeof (options) === 'string' && options[0] !== '_') {
+        if (typeof options === 'string' && options[0] !== '_') {
           var method = instance[options];
-          if (typeof (method) === 'function') {
+          if (typeof method === 'function') {
             returns = method.apply(instance, Array.prototype.slice.call(args, 1));
           } else {
             // method missing
@@ -214,15 +201,15 @@
 
     // if the earlier cached method has a value return it, otherwise return this to preserve chainability
     return returns !== undefined ? returns : this;
-  }
+  };
 
   $.fn[PLUGIN_NAME].defaults = {
     wrapperCssClass: 'fitframe-wrap',
     iframeCssClass: 'fitframe',
     mode: MODE_WRAP,
     fitHeight: false,
-    containerHeight: function() { return this.element.height(); },
-    containerWidth: function() { return this.element.width(); }
+    containerHeight: function () { return this.element.height(); },
+    containerWidth: function () { return this.element.width(); }
   };
 
 
