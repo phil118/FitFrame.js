@@ -12,6 +12,10 @@ You can install via bower
 
     bower install fitframe --save
 
+Or via npm
+
+    bower install fabrik-fitframe --save
+
 If you're using `mode: wrap` (the default) you'll want to reference `fitframe.css`:
 
 	<link rel="stylesheet" href="fitframe.css" />
