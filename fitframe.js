@@ -20,6 +20,7 @@
       if (this.options.mode === MODE_RESIZE) {
         this._resizeNew();
       } else {
+        this._calcWrapped();
         this._wrapNew();
       }
     },
@@ -87,6 +88,31 @@
       }
 
       this.update();
+    },
+
+    _calcWrapped: function() {
+
+      var self = this,
+
+      iframes = this.element.find('iframe')
+          .filter(function () {
+            return $(this).closest('.' + self.options.wrapperCssClass).length;
+          });
+
+      iframes.each(function () {
+
+        var iframe = this;
+
+        var width = $(iframe).data('width') || iframe.width();
+        var height = $(iframe).data('height') || iframe.height();
+
+        var padding = this._calculateRatio(width, height) * 100 + '%';
+
+        $(iframe).parent('.' + self.options.wrapperCssClass).css('padding-bottom', padding);
+
+
+      });
+
     },
 
     _wrapNew: function () {
