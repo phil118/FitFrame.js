@@ -98,9 +98,6 @@
           .filter(function () {
             return $(this).closest('.' + self.options.wrapperCssClass).length;
           });
-
-      console.log(iframes);
-
       iframes.each(function () {
 
         var iframe = this;
@@ -111,8 +108,7 @@
         var padding = self._calculateRatio(width, height) * 100 + '%';
 
         $(iframe).parent('.' + self.options.wrapperCssClass).css('padding-bottom', padding);
-
-
+        
       });
 
     },
