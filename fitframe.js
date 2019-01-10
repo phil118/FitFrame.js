@@ -34,7 +34,7 @@
       var padding = this._calculateRatio(width, height) * 100 + '%';
 
           if(this.options.limitToNativeWidth) {
-            var limiter = $('<div class="fitframe-limit" style="max-width: '+width+'"><div class="'+this.options.wrapperCssClass+'" style="padding-bottom: '+padding+'"></div></div>');
+            var limiter = $('<div class="fitframe-limit" style="max-width: '+width+'px"><div class="'+this.options.wrapperCssClass+'" style="padding-bottom: '+padding+'"></div></div>');
             return iframe.wrap(limiter).parent('.fitframe-limit');
           }
           else {
