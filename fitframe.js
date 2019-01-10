@@ -37,7 +37,10 @@
           .css('padding-bottom', padding);
 
           if(this.options.limitToNativeWidth) {
-            wrapper.css('max-width', width);
+            var limiter = $('<div/>').css('max-width', width);
+
+            iframe.wrap(wrapper);
+            return wrapper.wrap(limiter).parent();
           }
 
       // wrap the iframe and return the wrapper
@@ -118,6 +121,13 @@
         if(this.options.limitToNativeWidth) {
           wrapper.css('max-width', width);
         }
+
+        if(this.options.limitToNativeWidth) {
+          var limiter = $('<div/>').css('max-width', width);
+          wrapper.wrap(limiter);
+        }
+
+
         
       });
 
