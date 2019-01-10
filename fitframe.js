@@ -31,18 +31,16 @@
       var width = $(iframe).data('width') || $(iframe).width();
       var height = $(iframe).data('height') || $(iframe).height();
 
-      var padding = this._calculateRatio(width, height) * 100 + '%',
-        wrapper = $('<div/>')
-          .addClass(this.options.wrapperCssClass)
-          .css('padding-bottom', padding);
+      var padding = this._calculateRatio(width, height) * 100 + '%';
 
           if(this.options.limitToNativeWidth) {
-            var limiter = $('<div/>').css('max-width', width);
-
-            iframe.wrap(wrapper);
-            return wrapper.wrap(limiter).parent();
+            var limiter = $('<div class="fitframe-limit" style="max-width: '+width+'"><div class="'+this.options.wrapperCssClass+'" style="padding-bottom: '+padding+'"></div></div>');
+            return iframe.wrap(limiter).parent('.fitframe-limit');
           }
           else {
+            var wrapper = $('<div/>')
+            .addClass(this.options.wrapperCssClass)
+            .css('padding-bottom', padding);
             // wrap the iframe and return the wrapper
             return iframe.wrap(wrapper).parent();
           }
@@ -106,6 +104,7 @@
           .filter(function () {
             return $(this).closest('.' + self.options.wrapperCssClass).length;
           });
+
       iframes.each(function () {
 
         var iframe = this;
@@ -118,11 +117,6 @@
         var wrapper = $(iframe).parent('.' + self.options.wrapperCssClass);
 
         wrapper.css('padding-bottom', padding);
-
-        if(this.options.limitToNativeWidth) {
-          var limiter = $('<div/>').css('max-width', width);
-          wrapper.wrap(limiter);
-        }
         
       });
 
