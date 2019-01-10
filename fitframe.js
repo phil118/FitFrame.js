@@ -42,9 +42,10 @@
             iframe.wrap(wrapper);
             return wrapper.wrap(limiter).parent();
           }
-
-      // wrap the iframe and return the wrapper
-      return iframe.wrap(wrapper).parent();
+          else {
+            // wrap the iframe and return the wrapper
+            return iframe.wrap(wrapper).parent();
+          }
     },
 
     // Initializes and resizes a single iframe element (mode = 'resize')
@@ -119,15 +120,9 @@
         wrapper.css('padding-bottom', padding);
 
         if(this.options.limitToNativeWidth) {
-          wrapper.css('max-width', width);
-        }
-
-        if(this.options.limitToNativeWidth) {
           var limiter = $('<div/>').css('max-width', width);
           wrapper.wrap(limiter);
         }
-
-
         
       });
 
