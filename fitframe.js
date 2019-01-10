@@ -36,6 +36,10 @@
           .addClass(this.options.wrapperCssClass)
           .css('padding-bottom', padding);
 
+          if(this.options.limitToNativeWidth) {
+            wrapper.css('max-width', width);
+          }
+
       // wrap the iframe and return the wrapper
       return iframe.wrap(wrapper).parent();
     },
@@ -107,7 +111,13 @@
 
         var padding = self._calculateRatio(width, height) * 100 + '%';
 
-        $(iframe).parent('.' + self.options.wrapperCssClass).css('padding-bottom', padding);
+        var wrapper = $(iframe).parent('.' + self.options.wrapperCssClass);
+
+        wrapper.css('padding-bottom', padding);
+
+        if(this.options.limitToNativeWidth) {
+          wrapper.css('max-width', width);
+        }
         
       });
 
@@ -233,7 +243,8 @@
     mode: MODE_WRAP,
     fitHeight: false,
     containerHeight: function () { return this.element.height(); },
-    containerWidth: function () { return this.element.width(); }
+    containerWidth: function () { return this.element.width(); },
+    limitToNativeWidth: false
   };
 
 
