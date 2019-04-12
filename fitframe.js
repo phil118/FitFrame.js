@@ -28,22 +28,23 @@
     // Wraps a single iframe element (mode = 'wrap')
     wrap: function (iframe) {
 
-      var width = $(iframe).data('width') || $(iframe).width();
-      var height = $(iframe).data('height') || $(iframe).height();
+      var width = $(iframe).data('width') || $(iframe).attr('width') || $(iframe).width();
+      var height = $(iframe).data('height') || $(iframe).attr('height') || $(iframe).height();
 
       var padding = this._calculateRatio(width, height) * 100 + '%';
 
-          if(this.options.limitToNativeWidth) {
-            var limiter = $('<div class="fitframe-limit" style="max-width: '+width+'px"><div class="'+this.options.wrapperCssClass+'" style="padding-bottom: '+padding+'"></div></div>');
-            return iframe.wrap(limiter).parent('.fitframe-limit');
-          }
-          else {
-            var wrapper = $('<div/>')
-            .addClass(this.options.wrapperCssClass)
-            .css('padding-bottom', padding);
-            // wrap the iframe and return the wrapper
-            return iframe.wrap(wrapper).parent();
-          }
+      if (this.options.limitToNativeWidth) {
+        var limiter = $('<div class="fitframe-limit" style="max-width: ' + width + 'px"><div class="' + this.options.wrapperCssClass + '" style="padding-bottom: ' + padding + '"></div></div>');
+        return iframe.wrap(limiter).parent('.fitframe-limit');
+      }
+      else {
+        var wrapper = $('<div/>')
+          .addClass(this.options.wrapperCssClass)
+          .css('padding-bottom', padding);
+          
+        // wrap the iframe and return the wrapper
+        return iframe.wrap(wrapper).parent();
+      }
     },
 
     // Initializes and resizes a single iframe element (mode = 'resize')
@@ -117,7 +118,7 @@
         var wrapper = $(iframe).parent('.' + self.options.wrapperCssClass);
 
         wrapper.css('padding-bottom', padding);
-        
+
       });
 
     },
