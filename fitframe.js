@@ -31,6 +31,10 @@
       var width = $(iframe).data('width') || $(iframe).attr('width') || $(iframe).width();
       var height = $(iframe).data('height') || $(iframe).attr('height') || $(iframe).height();
 
+      if(width === "100%") {
+        width = $(iframe).width();
+      }
+
       var padding = this._calculateRatio(width, height) * 100 + '%';
 
       if (this.options.limitToNativeWidth) {
@@ -41,7 +45,7 @@
         var wrapper = $('<div/>')
           .addClass(this.options.wrapperCssClass)
           .css('padding-bottom', padding);
-          
+
         // wrap the iframe and return the wrapper
         return iframe.wrap(wrapper).parent();
       }
