@@ -114,8 +114,8 @@
 
         var iframe = this;
 
-        var width = $(iframe).data('width') || $(iframe).attr('width');
-        var height = $(iframe).data('height') || $(iframe).attr('height');
+        var width = $(iframe).data('width') || $(iframe).attr('width') || $(iframe).width();
+        var height = $(iframe).data('height') || $(iframe).attr('height') || $(iframe).height();
 
         var padding = self._calculateRatio(width, height) * 100 + '%';
 
@@ -150,8 +150,8 @@
 
     _setupIframe: function (iframe) {
 
-      var width = $(iframe).data('width') || $(iframe).width();
-      var height = $(iframe).data('height') || $(iframe).height();
+      var width = $(iframe).data('width') || $(iframe).attr('width') || $(iframe).width();
+      var height = $(iframe).data('height') || $(iframe).attr('height') || $(iframe).height();
 
       iframe
         .data(PLUGIN_NAME, {
